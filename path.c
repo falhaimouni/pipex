@@ -1,16 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: falhaimo <falhaimo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: falhaimo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/03 14:10:14 by falhaimo          #+#    #+#             */
-/*   Updated: 2024/11/10 08:20:11 by falhaimo         ###   ########.fr       */
+/*   Created: 2024/11/10 08:26:42 by falhaimo          #+#    #+#             */
+/*   Updated: 2024/11/10 08:26:49 by falhaimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "pipex.h"
 
 char	*get_path(char *cmd, char **envp)
 {
@@ -72,62 +70,3 @@ char	*get_path(char *cmd, char **envp)
 	return (NULL);
 }
 
-void	free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}
-
-void	handle_error(const char *msg, int exit_code)
-{
-	(void)exit_code;
-	perror(msg);
-	exit(EXIT_FAILURE);
-}
-
-void	execute_command(char *cmd, char **envp, int in_fd, int out_fd)
-{
-	char	**cmd_args;
-	char	*cmd_path;
-
-	if (dup2(in_fd, STDIN_FILENO) == -1)
-		handle_error("ERROR dup in", 1);
-	if (dup2(out_fd, STDOUT_FILENO) == -1)
-		handle_error("ERROR dup out", 1);
-	close(in_fd);
-	close(out_fd);
-	cmd_args = ft_split(cmd, ' ');
-	cmd_path = get_path(cmd_args[0], envp);
-	if (!cmd_path)
-	{
-		perror("ERROR find command");
-		free_split(cmd_args);
-		exit(EXIT_FAILURE);
-	}
-	if (execve(cmd_path, cmd_args, envp) == -1)
-	{
-		perror("ERROR execute");
-		free_split(cmd_args);
-		free(cmd_path);
-		exit(EXIT_FAILURE);
-	}
-	free_split(cmd_args);
-	free(cmd_path);
-}
-
-int	open_file(const char *filename, int flags, mode_t mode)
-{
-	int	fd;
-
-	fd = open(filename, flags, mode);
-	if (fd < 0)
-		handle_error("ERROR open file", 1);
-	return (fd);
-}

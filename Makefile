@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 NAME = pipex
 
-SRCS = pipex.c ft_split.c helper.c
+SRCS = pipex.c ft_split.c helper.c main.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
