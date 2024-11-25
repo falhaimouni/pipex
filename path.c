@@ -6,7 +6,7 @@
 /*   By: falhaimo <falhaimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 11:22:35 by falhaimo          #+#    #+#             */
-/*   Updated: 2024/11/11 11:46:27 by falhaimo         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:22:06 by falhaimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,11 @@ char	*get_path(char *cmd, char **envp)
 		return (NULL);
 	full_path = check_access_and_build_path(dir, cmd);
 	return (full_path);
+}
+
+void	free_path(char **cmd_args, char *cmd_path)
+{
+	free_cmd_args(cmd_args);
+	free(cmd_path);
+	mass("ERROR execute");
 }

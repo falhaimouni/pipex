@@ -6,7 +6,7 @@
 /*   By: falhaimo <falhaimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 12:28:15 by falhaimo          #+#    #+#             */
-/*   Updated: 2024/11/11 11:38:16 by falhaimo         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:20:44 by falhaimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,7 @@ char	*find_path_in_env(char **envp);
 char	**split_path_dirs(char *path);
 char	*check_access_and_build_path(char **dir, char *cmd);
 char	*get_path(char *cmd, char **envp);
+void	execute_command(char *cmd_path, char **cmd_args, char **envp);
+void	free_path(char **cmd_args, char *cmd_path);
 
 #endif

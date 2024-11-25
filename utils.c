@@ -6,7 +6,7 @@
 /*   By: falhaimo <falhaimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 10:34:12 by falhaimo          #+#    #+#             */
-/*   Updated: 2024/11/11 11:33:20 by falhaimo         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:44:20 by falhaimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ void	open_files(char **argv, t_fds *fds)
 {
 	fds->in_fd = open(argv[1], O_RDONLY);
 	if (fds->in_fd < 0)
-		mass("ERROR open in");
+		perror("ERROR");
 	fds->out_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fds->out_fd < 0)
 	{
 		close(fds->in_fd);
-		mass("ERROR open out");
+		mass("ERROR");
 	}
 }
 
 void	create_pipe(t_fds *fds)
 {
 	if (pipe(fds->pipe_fd) == -1)
-		mass("ERROR create pipe");
+		perror("");
 }
 
 pid_t	create_child_process(void)
@@ -43,7 +43,10 @@ pid_t	create_child_process(void)
 
 	pid = fork();
 	if (pid < 0)
-		mass("ERROR forking");
+	{
+		perror("Error forking");
+		exit(1);
+	}
 	return (pid);
 }
 

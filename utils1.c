@@ -6,7 +6,7 @@
 /*   By: falhaimo <falhaimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 11:41:11 by falhaimo          #+#    #+#             */
-/*   Updated: 2024/11/11 11:43:44 by falhaimo         ###   ########.fr       */
+/*   Updated: 2024/11/23 08:59:32 by falhaimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ char	*find_path(char **envp)
 
 char	**split_path(char *path)
 {
-	return (ft_split(path, ':'));
+	char	**ozha;
+
+	ozha = ft_split(path, ':');
+	return (ozha);
 }
 
 char	*build_full_path(char *dir, char *cmd)
