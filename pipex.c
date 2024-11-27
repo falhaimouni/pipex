@@ -6,7 +6,7 @@
 /*   By: falhaimo <falhaimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:10:14 by falhaimo          #+#    #+#             */
-/*   Updated: 2024/11/25 12:22:57 by falhaimo         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:52:53 by falhaimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	handle_child_process(t_fds *fds, char *cmd, char **envp)
 	char	**cmd_args;
 	char	*cmd_path;
 
-	if (dup2(fds->in_fd, STDIN_FILENO) == -1
-		|| dup2(fds->pipe_fd[1], STDOUT_FILENO) == -1)
+	if (dup2(fds->in_fd, STDIN_FILENO) == -1 || dup2(fds->pipe_fd[1],
+			STDOUT_FILENO) == -1)
 	{
 		perror("Error");
 		closed_fds(fds);
@@ -42,7 +42,8 @@ void	handle_child_process(t_fds *fds, char *cmd, char **envp)
 	if (!cmd_path)
 	{
 		free_cmd_args(cmd_args);
-		mass("ERROR execute: command not found");
+		write(2, "ERROR execute: command not found\n", 34);
+		exit(1);
 	}
 	if (execve(cmd_path, cmd_args, envp) == -1)
 		free_path(cmd_args, cmd_path);
@@ -55,8 +56,8 @@ void	handle_parent_process(t_fds *fds, char *cmd, char **envp)
 	char	**cmd_args;
 	char	*cmd_path;
 
-	if (dup2(fds->pipe_fd[0], STDIN_FILENO) == -1
-		|| dup2(fds->out_fd, STDOUT_FILENO) == -1)
+	if (dup2(fds->pipe_fd[0], STDIN_FILENO) == -1 || dup2(fds->out_fd,
+			STDOUT_FILENO) == -1)
 		mass("ERROR dup1 in");
 	closed_fds(fds);
 	cmd_args = ft_split(cmd, ' ');
@@ -64,7 +65,8 @@ void	handle_parent_process(t_fds *fds, char *cmd, char **envp)
 	if (!cmd_path)
 	{
 		free_cmd_args(cmd_args);
-		mass("ERROR execute: command not found");
+		write(2, "ERROR execute: command not found\n", 34);
+		exit(1);
 	}
 	if (execve(cmd_path, cmd_args, envp) == -1)
 	{

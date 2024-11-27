@@ -13,20 +13,20 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stddef.h>
 # include <fcntl.h>
+# include <stddef.h>
+# include <stdio.h>
+# include <stdlib.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <unistd.h>
 
 typedef struct s_fds
 {
 	int	in_fd;
 	int	out_fd;
 	int	pipe_fd[2];
-}	t_fds;
+}		t_fds;
 
 char	**ft_split(char const *s, char c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

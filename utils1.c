@@ -6,7 +6,7 @@
 /*   By: falhaimo <falhaimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 11:41:11 by falhaimo          #+#    #+#             */
-/*   Updated: 2024/11/23 08:59:32 by falhaimo         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:50:54 by falhaimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,13 @@ char	*build_full_path(char *dir, char *cmd)
 	int		cmd_len;
 	char	*full_path;
 
+	if (!cmd || !cmd[0])
+		return (NULL);
 	dir_len = ft_strlen(dir);
 	cmd_len = ft_strlen(cmd);
 	full_path = (char *)malloc(dir_len + cmd_len + 2);
+	if (!full_path)
+		return (NULL);
 	if (full_path)
 	{
 		ft_strcpy(full_path, dir);
