@@ -6,7 +6,7 @@
 /*   By: falhaimo <falhaimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:10:14 by falhaimo          #+#    #+#             */
-/*   Updated: 2024/11/27 17:52:53 by falhaimo         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:26:58 by falhaimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,14 @@ int	main(int argc, char **argv, char **envp)
 	pid_t	pid1;
 	t_fds	fds;
 
+	pid = -1;
 	if (argc != 5)
 		mass("Usage: ./pipex infile cmd1 cmd2 outfile");
 	open_files(argv, &fds);
 	create_pipe(&fds);
-	pid = create_child_process();
-	if (pid == 0 && fds.in_fd != -1)
+	if (fds.in_fd != -1)
+		pid = create_child_process();
+	if (pid == 0)
 		handle_child_process(&fds, argv[2], envp);
 	else
 	{
