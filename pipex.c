@@ -6,7 +6,7 @@
 /*   By: falhaimo <falhaimo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:10:14 by falhaimo          #+#    #+#             */
-/*   Updated: 2024/12/04 11:26:58 by falhaimo         ###   ########.fr       */
+/*   Updated: 2024/12/08 09:10:58 by falhaimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ int	main(int argc, char **argv, char **envp)
 			handle_parent_process(&fds, argv[3], envp);
 		close(fds.pipe_fd[0]);
 		close(fds.pipe_fd[1]);
-		waitpid(-1, NULL, 0);
-		waitpid(-1, NULL, 0);
+		wait(NULL);
+		wait(NULL);
 		close_fds(&fds);
 	}
 	return (0);
