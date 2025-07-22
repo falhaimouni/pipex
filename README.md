@@ -58,6 +58,6 @@ make
 ```
 📦 Example
 ```bash
-./pipex input.txt "grep hello" "wc -l" output.txt
+./pipex input.txt "cat" "wc -l" output.txt
 ```
 
